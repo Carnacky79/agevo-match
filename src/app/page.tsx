@@ -56,7 +56,13 @@ export default function Home() {
                 <a href="#come-funziona" className="text-gray-600 hover:text-gray-900 transition-colors">Come funziona</a>
                 <a href="#vantaggi" className="text-gray-600 hover:text-gray-900 transition-colors">Vantaggi</a>
                 <a href="#testimonianze" className="text-gray-600 hover:text-gray-900 transition-colors">Testimonianze</a>
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                <button
+                    onClick={() => {
+                      const formSection = document.querySelector('#form-section')
+                      formSection?.scrollIntoView({ behavior: 'smooth' })
+                    }}
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
                   Inizia ora →
                 </button>
               </div>
@@ -141,7 +147,7 @@ export default function Home() {
               </div>
 
               {/* Form */}
-              <div>
+              <div id="form-section">
                 <CompanyForm onSuccess={handleFormSubmit} />
               </div>
             </div>
@@ -395,7 +401,10 @@ export default function Home() {
               I primi 5 bandi sono gratuiti, senza impegno.
             </p>
             <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => {
+                  const formSection = document.querySelector('#form-section')
+                  formSection?.scrollIntoView({ behavior: 'smooth' })
+                }}
                 className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors shadow-xl"
             >
               Inizia l'analisi gratuita →
