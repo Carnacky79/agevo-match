@@ -12,7 +12,19 @@
  * - 0-29%: Match SCARSO (non consigliato)
  */
 
-import { Company, Bando } from '@/types'
+import {Company, Bando, SectorType, RegionType, CompanySize, InvestmentGoal} from '@/types'
+
+type CompanyData = (Company & { id: string }) | {
+  id?: string
+  [key: string]: unknown
+  sector?: SectorType
+  region?: RegionType
+  company_size?: CompanySize
+  companySize?: CompanySize
+  investment_goal?: InvestmentGoal
+  investmentGoal?: InvestmentGoal
+  companyData?: Partial<Company>
+}
 
 export interface MatchCriteria {
   sector_match: boolean
@@ -69,7 +81,7 @@ export class MatchingService {
    * Calcola il matching tra un'azienda e tutti i bandi disponibili
    */
   public calculateAllMatches(
-    company: Company | any, 
+    company: CompanyData,
     bandi: Bando[]
   ): MatchResult[] {
     const results: MatchResult[] = []
@@ -91,7 +103,7 @@ export class MatchingService {
    * Calcola il matching tra un'azienda e un singolo bando
    */
   public calculateSingleMatch(
-    company: Company | any,
+    company: CompanyData,
     bando: Bando
   ): MatchResult {
     

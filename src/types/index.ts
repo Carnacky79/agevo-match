@@ -81,7 +81,7 @@ export interface Match {
     company_id: string
     bando_id: string
     match_score: number
-    match_reasons: MatchReasons | any // Flessibile per retrocompatibilità
+    match_reasons: MatchReasons | Record<string, unknown>
     viewed?: boolean
     saved?: boolean
     created_at: string

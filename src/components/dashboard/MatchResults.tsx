@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Match, Company } from '@/types'
 import { CONTRIBUTION_TYPES } from '@/utils/constants'
@@ -20,7 +20,7 @@ export function MatchResults({ companyId }: MatchResultsProps) {
     loadMatches()
   }, [companyId])
 
-  const loadMatches = async () => {
+  const loadMatches = useCallback(async () => {
     try {
       // Load company data
       const { data: companyData } = await supabase
@@ -47,7 +47,7 @@ export function MatchResults({ companyId }: MatchResultsProps) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [companyId])
 
   const getMatchColor = (score: number) => {
     if (score >= 90) return 'bg-purple-100 text-purple-800 border-purple-300'
