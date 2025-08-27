@@ -126,7 +126,7 @@ export default function Home() {
                         <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded">87% Match</span>
                         <span className="text-sm text-gray-500">Scade tra 30 giorni</span>
                       </div>
-                      <h3 className="font-semibold text-gray-900">Credito d'imposta R&S</h3>
+                      <div className="text-sm text-gray-600">Credito d&apos;imposta R&amp;S</div>
                       <p className="text-sm text-gray-600 mt-1">Credito 20% su investimenti</p>
                     </div>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
