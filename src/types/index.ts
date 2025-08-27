@@ -4,6 +4,11 @@ export type SectorType = 'tech' | 'manufacturing' | 'services' | 'retail' | 'hea
 export type InvestmentGoal = 'digitalization' | 'research' | 'green' | 'international' | 'training' | 'innovation' | 'expansion' | 'other'
 export type RegionType = 'lombardia' | 'lazio' | 'veneto' | 'emilia-romagna' | 'piemonte' | 'toscana' | 'campania' | 'sicilia' | 'puglia' | 'calabria' | 'sardegna' | 'friuli' | 'liguria' | 'marche' | 'abruzzo' | 'umbria' | 'basilicata' | 'molise' | 'trentino' | 'valle-aosta'
 export type ContributionType = 'fondo_perduto' | 'finanziamento_agevolato' | 'credito_imposta' | 'misto'
+export type BandoStatus = 'active' | 'closed' | 'coming_soon' | 'draft'
+
+// Priority levels for matches
+export type PriorityLevel = 'urgent' | 'high' | 'normal' | 'low'
+export type ConfidenceLevel = 'high' | 'medium' | 'low'
 
 // Company interface
 export interface Company {
@@ -35,28 +40,52 @@ export interface Bando {
     eligible_investment_goals: InvestmentGoal[]
     opening_date: string
     closing_date: string
-    status: 'active' | 'closed' | 'coming_soon' | 'draft'
+    status: BandoStatus
     official_url?: string
     created_at: string
     updated_at: string
 }
 
-// Match interface
+// Enhanced match reasons with all algorithm details
+export interface MatchReasons {
+    // Basic criteria (original)
+    sector_match: boolean
+    region_match: boolean
+    size_match: boolean
+    goal_match: boolean
+
+    // Advanced algorithm additions
+    confidence_level?: ConfidenceLevel
+    success_rate?: number
+    priority?: PriorityLevel
+
+    // Detailed scoring
+    score_details?: {
+        sector_score: number
+        region_score: number
+        size_score: number
+        goal_score: number
+        bonus_score: number
+        penalty_score: number
+    }
+
+    // Analysis arrays
+    matching_features?: string[]
+    missing_requirements?: string[]
+    suggestions?: string[]
+}
+
+// Match interface - compatibile con database e algoritmo
 export interface Match {
     id: string
     company_id: string
     bando_id: string
     match_score: number
-    match_reasons: {
-        sector_match: boolean
-        region_match: boolean
-        size_match: boolean
-        goal_match: boolean
-    }
-    viewed: boolean
-    saved: boolean
+    match_reasons: MatchReasons | any // Flessibile per retrocompatibilità
+    viewed?: boolean
+    saved?: boolean
     created_at: string
-    bando?: Bando // Join with bando data
+    bando?: Bando // Join with bando data quando caricato
 }
 
 // Form data for company profile
@@ -69,4 +98,21 @@ export interface CompanyFormData {
     region: RegionType
     companySize: CompanySize
     investmentGoal: InvestmentGoal
+}
+
+// API Response types
+export interface ApiResponse<T> {
+    data?: T
+    error?: string
+    success: boolean
+    message?: string
+}
+
+// Match filters
+export interface MatchFilters {
+    minScore?: number
+    priority?: PriorityLevel
+    sector?: SectorType
+    region?: RegionType
+    confidenceLevel?: ConfidenceLevel
 }
