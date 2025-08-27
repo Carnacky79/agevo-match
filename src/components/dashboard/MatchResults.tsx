@@ -170,10 +170,10 @@ export function MatchResults({ companyId }: MatchResultsProps) {
                   <span className={`px-4 py-2 rounded-lg text-sm font-bold border ${getMatchColor(match.match_score)}`}>
                     {match.match_score}% MATCH
                   </span>
-                  {match.match_reasons?.priority && getPriorityBadge(match.match_reasons.priority)}
-                  {match.match_reasons?.confidence_level && (
+                  {(match.match_reasons as any)?.priority && getPriorityBadge((match.match_reasons as any).priority)}
+                  {(match.match_reasons as any)?.confidence_level && (
                     <span className="text-sm text-gray-600">
-                      Confidenza: {getConfidenceStars(match.match_reasons.confidence_level)}
+                      Confidenza: {getConfidenceStars((match.match_reasons as any).confidence_level)}
                     </span>
                   )}
                 </div>
@@ -187,16 +187,16 @@ export function MatchResults({ companyId }: MatchResultsProps) {
                 </p>
 
                 {/* Success Rate */}
-                {match.match_reasons?.success_rate && (
+                {(match.match_reasons as any)?.success_rate && (
                   <div className="mb-4">
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-gray-600">Probabilità di successo:</span>
                       <div className="flex-1 bg-gray-200 rounded-full h-4 max-w-xs">
                         <div 
                           className="bg-gradient-to-r from-blue-500 to-green-500 h-4 rounded-full flex items-center justify-center text-xs text-white font-semibold"
-                          style={{ width: `${match.match_reasons.success_rate}%` }}
+                          style={{ width: `${(match.match_reasons as any).success_rate}%` }}
                         >
-                          {match.match_reasons.success_rate}%
+                          {(match.match_reasons as any).success_rate}%
                         </div>
                       </div>
                     </div>
@@ -247,22 +247,22 @@ export function MatchResults({ companyId }: MatchResultsProps) {
 
               {/* Basic Criteria */}
               <div className="flex flex-wrap gap-2">
-                {match.match_reasons?.sector_match && (
+                {(match.match_reasons as any)?.sector_match && (
                   <span className="bg-green-50 text-green-700 px-3 py-1 rounded-lg text-sm">
                     ✓ Settore compatibile
                   </span>
                 )}
-                {match.match_reasons?.region_match && (
+                {(match.match_reasons as any)?.region_match && (
                   <span className="bg-green-50 text-green-700 px-3 py-1 rounded-lg text-sm">
                     ✓ Regione ammessa
                   </span>
                 )}
-                {match.match_reasons?.size_match && (
+                {(match.match_reasons as any)?.size_match && (
                   <span className="bg-green-50 text-green-700 px-3 py-1 rounded-lg text-sm">
                     ✓ Dimensione idonea
                   </span>
                 )}
-                {match.match_reasons?.goal_match && (
+                {(match.match_reasons as any)?.goal_match && (
                   <span className="bg-green-50 text-green-700 px-3 py-1 rounded-lg text-sm">
                     ✓ Obiettivo allineato
                   </span>
@@ -270,14 +270,14 @@ export function MatchResults({ companyId }: MatchResultsProps) {
               </div>
 
               {/* Detailed Analysis (expandable) */}
-              {selectedMatch?.id === match.id && match.match_reasons && (
+              {selectedMatch?.id === match.id && (match.match_reasons as any) && (
                 <div className="mt-4 bg-gray-50 rounded-lg p-4">
                   {/* Matching Features */}
-                  {match.match_reasons.matching_features?.length > 0 && (
+                  {(match.match_reasons as any).matching_features?.length > 0 && (
                     <div className="mb-3">
                       <p className="text-sm font-semibold text-green-700 mb-2">✅ Punti di forza:</p>
                       <ul className="text-sm text-gray-600 space-y-1">
-                        {match.match_reasons.matching_features.map((feature, i) => (
+                        {((match.match_reasons as any)?.matching_features as string[])?.map((feature, i) => (
                           <li key={i}>• {feature}</li>
                         ))}
                       </ul>
@@ -285,11 +285,11 @@ export function MatchResults({ companyId }: MatchResultsProps) {
                   )}
                   
                   {/* Missing Requirements */}
-                  {match.match_reasons.missing_requirements?.length > 0 && (
+                  {(match.match_reasons as any).missing_requirements?.length > 0 && (
                     <div className="mb-3">
                       <p className="text-sm font-semibold text-red-700 mb-2">❌ Requisiti mancanti:</p>
                       <ul className="text-sm text-gray-600 space-y-1">
-                        {match.match_reasons.missing_requirements.map((req, i) => (
+                        {((match.match_reasons as any)?.missing_requirements as string[])?.map((req, i) => (
                           <li key={i}>• {req}</li>
                         ))}
                       </ul>
@@ -297,11 +297,11 @@ export function MatchResults({ companyId }: MatchResultsProps) {
                   )}
                   
                   {/* Suggestions */}
-                  {match.match_reasons.suggestions?.length > 0 && (
+                  {(match.match_reasons as any).suggestions?.length > 0 && (
                     <div>
                       <p className="text-sm font-semibold text-blue-700 mb-2">💡 Suggerimenti:</p>
                       <ul className="text-sm text-gray-600 space-y-1">
-                        {match.match_reasons.suggestions.map((suggestion, i) => (
+                        {((match.match_reasons as any)?.suggestions as string[])?.map((suggestion, i) => (
                           <li key={i}>• {suggestion}</li>
                         ))}
                       </ul>
